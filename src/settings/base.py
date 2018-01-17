@@ -161,4 +161,3 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'SITE_TITLE': ('mhp', 'THE TITLE OF YOUR SITE', str),
 }
-
