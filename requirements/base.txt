@@ -1,0 +1,11 @@
+Django==1.11.6
+django_environ==0.4.4
+django_compressor==2.2
+django-compressor-toolkit==0.6.0
+django-settings-context-processor==0.2
+flake8==3.5.0
+psycopg2==2.7.3.2
+
+django-picklefield==1.0.0
+django-constance==2.0.0
+

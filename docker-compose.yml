@@ -1,0 +1,46 @@
+version: "3.3"
+services:
+  mhp:
+    build:
+      context: .
+      dockerfile: compose/Dockerfile
+    volumes:
+    - static:/static/
+    - .:/code/
+    environment:
+      DJANGO_SECRET_KEY: "secret-key"
+      DEBUG: "True"
+      DJANGO_DATABASE_URL: "postgres://postgres:postgres@postgres:5432/mhp"
+      DJANGO_SETTINGS_MODULE: "src.settings.local"
+      STATIC_ROOT: "/static/"
+      GUNICORN_WORKERS: 2
+      GUNICORN_BACKLOG: 4096
+      GUNICORN_BIND: 0.0.0.0:8000
+    working_dir: /code
+    command: bash -c "compose/wait_for_development_db.sh && compose/create_development_db.sh && compose/install_npm_packages_if_required.sh && python3 manage.py migrate && gunicorn --config compose/gunicorn.conf src.wsgi"
+    links:
+    - "postgres:postgres"
+
+  postgres:
+      image: "postgres:latest"
+      environment:
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=mhp
+      volumes:
+          - postgres:/var/lib/postgresql/
+  nginx:
+    image: "registry.laboratorium.ee/nginx/nginx:latest"
+    volumes:
+    - static:/static/
+    ports:
+    - 8080:8080
+    links:
+    - "mhp:mhp"
+    environment:
+      PASS_TO: "http://mhp:8000"
+    depends_on:
+    - mhp
+
+volumes:
+  static:
+  postgres:

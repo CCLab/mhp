@@ -1,0 +1,17 @@
+FROM registry.laboratorium.ee/debian/stretch:latest
+ADD . /code/
+RUN apt-get update -y \
+    && apt-get install -y apt-transport-https gnupg \
+    && echo "deb https://deb.nodesource.com/node_4.x jessie main" \
+        > /etc/apt/sources.list.d/nodesource.list \
+    && cat /code/deployment/nodesource.gpg.key | apt-key add - \
+    && apt-get update -y \
+    && apt-get install -y build-essential python3.5-dev \
+                          libpq-dev python3-pip \
+                          python3.5 procps \
+                          nodejs postgresql-client \
+    && apt-get clean 
+RUN pip3 install -U pip
+RUN pip3 install -r /code/requirements/local.txt
+RUN cd /code/ && npm install -g yarn && yarn install
+LABEL maintainer="pomoc@adminotaur.pl"
