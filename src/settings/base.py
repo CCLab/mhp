@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'settings_context_processor',
     'src.apps.home',
+    'src.apps.parametrizedimage',
     'constance',
     'constance.backends.database',
 
