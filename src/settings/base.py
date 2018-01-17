@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'compressor',
     'compressor_toolkit',
     'settings_context_processor',
-
+    'src.apps.home',
     'constance',
     'constance.backends.database',
 
