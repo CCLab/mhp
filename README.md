@@ -1,5 +1,9 @@
 # mhp
 
+## Loading initial data
+
+You will need two archives, `card_scans.tar.gz` and `bible_scans.tar.gz` (the SHA256 sums are )
+
 ## Installation (local development - Docker)
 
 1. Request appropriate permissions to Docker images on [our Docker registry](https://registry.laboratorium.ee/) from [kazet](mailto:krzysztof.zajac@laboratorium.ee)
