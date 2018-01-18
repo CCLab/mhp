@@ -12,6 +12,7 @@ RUN apt-get update -y \
                           nodejs postgresql-client \
     && apt-get clean 
 RUN pip3 install -U pip
+RUN pip3 install -r /code/requirements/local.txt
 RUN pip3 install -r /code/requirements/production.txt
 RUN cd /code/ && npm install -g yarn && yarn install
 LABEL maintainer="pomoc@adminotaur.pl"
