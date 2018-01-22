@@ -52,7 +52,7 @@
               <li><a href="#">O projekcie</a></li>
               <li><a href="#">Karty poborowe</a></li>
               <li><a href="#">Biblie</a></li>
-              <li><a href="#">Kontakt</a></li>
+              <li><a href="{% url 'staticpages:contact' %}">Kontakt</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -61,9 +61,24 @@
     {% endblock content %}
     <footer class="footer">
         <div class="container">
+            <div class="row tbox">
+                <div class="col-xs-12 col-sm-4 tbox-left legal-disclaimer-box">
+                    O ile nie zaznaczono inaczej, wszystkie dokumenty prezentowane w serwisie
+                    są w Domenie Publicznej (nie podlegają ochronie prawnoautorskiej).
+                    <br/>
+                    <br/>
+                    Pozostałe elementy w serwisie są dostępne na licencji
+                    <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.pl">
+                        Creative Commons Uznanie autorstwa - na tych samych warunkach 3.0
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 tbox-right logo-box">
+                    Dofinansowano ze środków Ministra Kultury i Dziedzictwa Narodowego.
+                </div>
+            </div>
             <div class="row">
-                <div class="col-xs-12">
-                    dsf
+                <div class="col-xs-12 authors">
+                    projekt strony: <a href="http://www.syfonstudio.com/">syfonstudio</a> / kodowanie: <a href="https://laboratorium.ee/">Laboratorium EE</a>
                 </div>
             </div>
         </div>
