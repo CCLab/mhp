@@ -1,3 +1,10 @@
 // Write your SASS styles here
 //
 // feel free to use imports.
+@import 'footer';
+@import 'variables';
+@import 'vendor/bootstrap';
+
+body {
+  background-color: $color-bg;
+}

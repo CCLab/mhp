@@ -1,5 +1,7 @@
 files:
   include: 'src/static/**/*.s+(a|c)ss'
+  ignore:
+  - 'src/static/**/vendor/**/*.*'
 formatter: stylish
 rules:
   indentation:
