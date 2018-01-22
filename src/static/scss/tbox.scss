@@ -1,0 +1,40 @@
+.tbox {
+  $tbox-border-width: 1px;
+  $tbox-border-color: #000;
+
+  display: flex;
+
+  .tbox-left {
+    border-right: $tbox-border-width solid $tbox-border-color;
+    margin-right: 0;
+
+    &::after {
+      left: 15px;
+      right: 0;
+    }
+  }
+
+  .tbox-right {
+    border-left: $tbox-border-width solid $tbox-border-color;
+    margin-left: -$tbox-border-width;
+
+    &::after {
+      left: 0;
+      right: 15px;
+    }
+  }
+
+  .tbox-left,
+  .tbox-right {
+    position: relative;
+
+    &::after {
+      border-bottom: $tbox-border-width solid $tbox-border-color;
+      bottom: 0;
+
+      content: ' ';
+      height: 0;
+      position: absolute;
+    }
+  }
+}

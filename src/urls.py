@@ -24,6 +24,7 @@ from src.apps.home.views import HomepageView
 
 urlpatterns = [
     url(r'^$', HomepageView.as_view(), name='homepage'),
+    url(r'^', include('src.apps.staticpages.urls', namespace='staticpages')),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

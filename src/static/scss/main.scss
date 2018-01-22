@@ -3,8 +3,11 @@
 // feel free to use imports.
 @import 'footer';
 @import 'variables';
+@import 'tbox';
+@import 'pages/contact';
 @import 'vendor/bootstrap';
 
 body {
   background-color: $color-bg;
+  padding-top: $navbar-height + 20px;
 }

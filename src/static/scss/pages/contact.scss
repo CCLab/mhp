@@ -1,0 +1,31 @@
+@import '../vendor/bootstrap/variables';
+
+.page-contact {
+  padding-bottom: 40px;
+
+  .contact-info-box {
+    .tbox-left {
+      font-weight: bold;
+    }
+
+    .tbox-left,
+    .tbox-right {
+      margin-bottom: 50px;
+      padding-bottom: 20px;
+    }
+  }
+
+  @media(min-width: $screen-sm-min) {
+    .map {
+      height: 500px;
+      width: 500px;
+    }
+  }
+
+  @media(max-width: $screen-sm-min - 1) {
+    .map {
+      height: 300px;
+      width: 100%;
+    }
+  }
+}
