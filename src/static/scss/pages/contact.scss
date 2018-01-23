@@ -3,20 +3,27 @@
 .page-contact {
   .contact-info-box {
     .tbox-left {
-      font-weight: bold;
+      font-weight: 500;
     }
 
     .tbox-left,
     .tbox-right {
-      margin-bottom: 50px;
+      margin-bottom: 30px;
+      margin-top: 20px;
+      max-width: 200px;
       padding-bottom: 20px;
     }
   }
 
   @media(min-width: $screen-sm-min) {
-    .map {
-      height: 500px;
-      width: 500px;
+    .col-map-wrapper {
+      text-align: right;
+
+      .map {
+        display: inline-block;
+        height: 500px;
+        width: 500px;
+      }
     }
   }
 

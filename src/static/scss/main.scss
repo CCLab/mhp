@@ -15,10 +15,32 @@ body {
   padding-top: $navbar-height + 20px;
 }
 
+h1 {
+  font-size: 21px;
+  font-weight: 500;
+  margin-bottom: 30px;
+
+  &::before {
+    content: '➔';
+    display: inline-block;
+    padding-right: 5px;
+  }
+}
+
 a {
   &,
   &:hover {
     color: inherit;
-    font-weight: bold;
+    font-weight: 500;
+  }
+}
+
+.navbar-header {
+  .navbar-brand {
+    margin-top: -10px;
+
+    img {
+      height: 40px;
+    }
   }
 }
