@@ -4,10 +4,16 @@
   .bible-list-item {
     background-repeat: no-repeat;
     background-size: cover;
+    border: 2px solid transparent;
     overflow: hidden;
 
-    padding-bottom: 50%;
+    padding-bottom: 150%;
     position: relative;
+    width: 100%;
+
+    &:hover {
+      border: 2px solid $color-fg-dark;
+    }
 
     a {
       bottom: 0;
