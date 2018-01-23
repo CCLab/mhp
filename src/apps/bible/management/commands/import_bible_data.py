@@ -15,7 +15,22 @@ BIBLES = [
         'title': 'Biblia Leopolity',
         'slug': 'leopolity',
         'cover': settings.BASE_DIR.path('src', 'static', 'img', 'bible', 'cover', 'leopolity.jpg'),
-        'data_folder_name': 'Biblia_Leopolity'
+        'data_folder_name': 'Biblia_Leopolity',
+        'num_initial_pages_to_skip': 5
+    },
+    {
+        'title': 'Biblia Sacra',
+        'slug': 'sacra',
+        'cover': settings.BASE_DIR.path('src', 'static', 'img', 'bible', 'cover', 'sacra.jpg'),
+        'data_folder_name': 'Biblia_Sacra',
+        'num_initial_pages_to_skip': 11
+    },
+    {
+        'title': 'Nowy Testament Pana Naszego',
+        'slug': 'nowy-testament-pana-naszego',
+        'cover': settings.BASE_DIR.path('src', 'static', 'img', 'bible', 'cover', 'nowy_testament_pana_naszego.jpg'),
+        'data_folder_name': 'Nowy_Testament_Pana_Naszego',
+        'num_initial_pages_to_skip': 4
     }
 ]
 
@@ -62,8 +77,8 @@ class Command(BaseCommand):
             )
             bible_images = os.listdir(bible_image_path)
 
-            i = 0
-            for image_name in sorted(bible_images):
+            i = 1
+            for image_name in sorted(bible_images)[bible['num_initial_pages_to_skip']:]:
                 if image_name.endswith('.jpg'):
                     img = BiblePage()
                     img.bible = obj
