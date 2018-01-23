@@ -10,5 +10,14 @@
 
 body {
   background-color: $color-bg;
+  font-family: 'Montserrat', sans-serif;
   padding-top: $navbar-height + 20px;
+}
+
+a {
+  &,
+  &:hover {
+    color: inherit;
+    font-weight: bold;
+  }
 }
