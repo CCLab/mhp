@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container page-bible-show">
+        <div class="row">
+            <div class="col-xs-12 data-wrapper">
+                <h1>{{ bible.title }}</h1>
+                <p class="scan-id">Skan numer: {{ image_id }}</p>
+
+                <div class="bible-page">
+                    {% if previous_image_exists %}
+                        <a class="previous" href="?page={{ previous_image_id }}">◀</a>
+                    {% endif %}
+
+                    <img src="{{ MEDIA_URL }}{{ image.image_small }}" />
+
+                    {% if next_image_exists %}
+                        <a class="next" href="?page={{ next_image_id }}">▶</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

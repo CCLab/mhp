@@ -1,0 +1,23 @@
+.page-bible-show > .data-wrapper {
+  text-align: center;
+
+  .scan-id {
+    margin-bottom: 30px;
+  }
+
+  .bible-page {
+    display: inline-block;
+    margin: auto;
+
+    .previous,
+    .next {
+      font-size: 40px;
+      opacity: .8;
+
+      &:hover {
+        opacity: 1;
+        text-decoration: none;
+      }
+    }
+  }
+}
