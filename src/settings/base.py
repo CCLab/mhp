@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'settings_context_processor',
     'src.apps.home',
+    'src.apps.bible',
     'src.apps.parametrizedimage',
+    'src.apps.staticpages',
     'constance',
     'constance.backends.database',
 
@@ -145,7 +147,8 @@ GOOGLE_ANALYTICS_ID = env('GOOGLE_ANALYTICS_ID', default='')
 
 # settings-context-processor
 TEMPLATE_VISIBLE_SETTINGS = [
-    'GOOGLE_ANALYTICS_ID'
+    'GOOGLE_ANALYTICS_ID',
+    'MEDIA_URL'
 ]
 
 # django-compressor

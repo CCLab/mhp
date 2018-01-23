@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container page-bible-index">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Biblie</h1>
+
+                <div class="row bible-list">
+                    {% for object in object_list %}
+                        <div class="col-xs-12 col-sm-4 bible-list-item"
+                             style="background-image: url({{ MEDIA_URL }}{{ object.cover }})">
+                            <a href="{% url 'bible:show' object.slug %}">
+                                <span class="title">{{ object.title }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
