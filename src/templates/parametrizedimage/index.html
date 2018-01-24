@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container page-card-index">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Karty pomiarowe</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for object in object_list %}
+                <div class="col-xs-12 col-sm-3">
+                    <a href="{% url 'parametrizedimage:show' object.pk %}" class="card" style="background-image: url({{ MEDIA_URL }}{{ object.image1 }})">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="paginator">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                {% endif %}
+
+                <span class="current">
+                    Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

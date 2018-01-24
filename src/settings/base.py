@@ -159,7 +159,6 @@ COMPRESS_PRECOMPILERS = (
 
 COMPRESS_LOCAL_NPM_INSTALL = True
 
-
 # django-constance
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {

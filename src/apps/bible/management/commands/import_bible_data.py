@@ -1,13 +1,11 @@
 import os
-import tempfile
-
-from PIL import Image
 
 from django.core.files import File
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from src.apps.bible.models import Bible, BiblePage
+from src.utils import downscale_image
 
 
 BIBLES = [
@@ -35,14 +33,6 @@ BIBLES = [
 ]
 
 
-def downscale_image(source_path):
-    output_path = tempfile.mktemp()
-    im = Image.open(source_path)
-    im.thumbnail((1000, 1000), Image.ANTIALIAS)
-    im.save(output_path, format='JPEG', quality=65)
-    return output_path
-
-
 class Command(BaseCommand):
     '''
     import bible data
@@ -51,7 +41,8 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             '--data-directory',
-            help='Image location')
+            required=True,
+            help='Data directory')
 
     def handle(self, *args, **options):
         data_directory = options['data_directory']

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="/static/vendor/css/slick.css" />
+
+    <script src="/static/vendor/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/vendor/js/slick.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#show-more-information').bind('click', function() {
+                $('.row.short-description').hide();
+                $('.row.long-description').show();
+            });
+            $('#hide-more-information').bind('click', function() {
+                $('.row.short-description').show();
+                $('.row.long-description').hide();
+            });
+
+            $('.carousel').slick();
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="container page-card-show">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Karta pomiarowa: {{ object.identifier }}</h1>
+            </div>
+        </div>
+        <div class="row short-description">
+            <div class="col-xs-12 col-sm-6">
+                {% for parameter_name, parameter_value in object.get_parameter_value_dictionary_more_important %}
+                    <div class="tbox">
+                        <div class="tbox-left">
+                            {{ parameter_name }}
+                        </div>
+                        <div class="tbox-right">
+                            {{ parameter_value }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <a class="button" id="show-more-information" href="#">
+                    Pokaż więcej informacji
+                    <span class="button-icon">+</span>
+                </a>
+            </div>
+        </div>
+        <div class="row long-description">
+            <div class="col-xs-12 col-sm-6">
+                {% for parameter_name, parameter_value in object.get_parameter_value_dictionary_part_1 %}
+                    <div class="tbox">
+                        <div class="tbox-left">
+                            {{ parameter_name }}
+                        </div>
+                        <div class="tbox-right">
+                            {{ parameter_value }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <a class="button" id="hide-more-information" href="#">
+                    Ukryj więcej informacji
+                    <span class="button-icon">-</span>
+                </a>
+                {% for parameter_name, parameter_value in object.get_parameter_value_dictionary_part_2 %}
+                    <div class="tbox">
+                        <div class="tbox-left">
+                            {{ parameter_name }}
+                        </div>
+                        <div class="tbox-right">
+                            {{ parameter_value }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="carousel">
+                    <div class="slide" style="background-image: url({{ MEDIA_URL }}{{ object.image1 }})"></div>
+
+                    {% if object.image2 %}
+                        <div class="slide" style="background-image: url({{ MEDIA_URL }}{{ object.image2 }})"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
