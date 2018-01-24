@@ -1,0 +1,14 @@
+.paginator {
+  font-size: 14px;
+  margin-top: 20px;
+  text-align: center;
+
+  a {
+    font-size: 20px;
+    padding: 0 10px;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
