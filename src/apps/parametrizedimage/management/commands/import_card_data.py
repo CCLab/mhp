@@ -74,6 +74,12 @@ class Command(BaseCommand):
                     card_directory_name,
                     'JPEG')
 
+                pdf_path = os.path.join(
+                    card_container_directory,
+                    reverse_card_location_dictionary[card_directory_name],
+                    card_directory_name,
+                    'PDF')
+
                 jpeg_file_names = os.listdir(jpeg_path)
                 if len(jpeg_file_names) < 1:
                     print("Empty JPEG folder for card %s, ignoring..." % identifier)
@@ -88,6 +94,16 @@ class Command(BaseCommand):
                             jpeg_file_names[1],
                             File(open(downscale_image(os.path.join(jpeg_path, jpeg_file_names[1])), 'rb')))
                 elif len(jpeg_file_names) > 2:
+                    assert(False)
+
+                pdf_file_names = os.listdir(pdf_path)
+                if len(pdf_file_names) < 1:
+                    pass
+                elif len(pdf_file_names) == 1:
+                    card.pdf_file.save(
+                        '%s.pdf' % identifier,
+                        File(open(os.path.join(pdf_path, pdf_file_names[0]), 'rb')))
+                elif len(pdf_file_names) > 1:
                     assert(False)
 
                 for card_parameter in CARD_PARAMETERS:
