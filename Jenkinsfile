@@ -70,11 +70,11 @@ node {
             }
 
             def app = docker.image("registry.laboratorium.ee/$projectName/$projectName:latest")
-            app.inside("--env-file $WORKSPACE/deployment/ci_environment.properties --link ${c.id}:db") {
+            app.inside("-u 0:0 --env-file $WORKSPACE/deployment/ci_environment.properties --link ${c.id}:db") {
                 //
                 // THIS IS THE PLACE WHERE YOU SHOULD HAVE EXECUTE WORKFLOW RELATED TO TESTS!
                 //
-                sh "cd /code/ && flake8 . && ./run_js_scss_linters.py && python3 manage.py test"
+                sh "whoami && cd /code/ && flake8 . && ./run_js_scss_linters.py && python3 manage.py test"
             }
             // Skip docker tagging and push if this is a PR
             if (!(env.JOB_BASE_NAME.startsWith("PR-"))) {
