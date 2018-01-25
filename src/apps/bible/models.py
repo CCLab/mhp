@@ -5,6 +5,7 @@ class Bible(models.Model):
     title = models.TextField()
     slug = models.TextField()
     cover = models.ImageField()
+    pdf_file = models.FileField()
 
 
 class BiblePage(models.Model):

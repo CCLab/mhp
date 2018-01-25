@@ -20,5 +20,33 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 downloads">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <a class="button" href="{{ MEDIA_URL }}{{ image.bible.pdf_file }}" download>
+                            Pobierz plik PDF
+                            <span class="button-icon">⇓</span>
+                        </a>
+                        <p class="small">
+                            Uwaga, plik PDF zawiera skany całej Biblii i może zajmować od kilkuset
+                            megabajtów do gigabajta. Jeśli chcesz pobrać skan pojedynczej strony, pobierz plik JPEG.
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <a class="button" href="{{ MEDIA_URL }}{{ image.image_small }}" download>
+                            Pobierz plik JPEG
+                            <span class="button-icon">⇓</span>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

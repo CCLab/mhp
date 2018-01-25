@@ -14,21 +14,24 @@ BIBLES = [
         'slug': 'leopolity',
         'cover': settings.BASE_DIR.path('src', 'static', 'img', 'bible', 'cover', 'leopolity.jpg'),
         'data_folder_name': 'Biblia_Leopolity',
-        'num_initial_pages_to_skip': 5
+        'num_initial_pages_to_skip': 5,
+        'pdf_file_name': 'Kultura_Cyfrowa/Biblie_MHP/Biblia_Leopolity/PDF/HC-PDF/Publikacja-MHP-25421.pdf'
     },
     {
         'title': 'Biblia Sacra',
         'slug': 'sacra',
         'cover': settings.BASE_DIR.path('src', 'static', 'img', 'bible', 'cover', 'sacra.jpg'),
         'data_folder_name': 'Biblia_Sacra',
-        'num_initial_pages_to_skip': 11
+        'num_initial_pages_to_skip': 11,
+        'pdf_file_name': 'Kultura_Cyfrowa/Biblie_MHP/Biblia_Sacra/PDF/HC-PDF/Publikacja-MHP-25422.pdf'
     },
     {
         'title': 'Nowy Testament Pana Naszego',
         'slug': 'nowy-testament-pana-naszego',
         'cover': settings.BASE_DIR.path('src', 'static', 'img', 'bible', 'cover', 'nowy_testament_pana_naszego.jpg'),
         'data_folder_name': 'Nowy_Testament_Pana_Naszego',
-        'num_initial_pages_to_skip': 4
+        'num_initial_pages_to_skip': 4,
+        'pdf_file_name': 'Kultura_Cyfrowa/Biblie_MHP/Nowy_Testament_Pana_Naszego/PDF/HC-PDF/Publikacja-MHP-25423.pdf'
     }
 ]
 
@@ -57,6 +60,11 @@ class Command(BaseCommand):
             obj.cover.save(
                 '%s.jpg' % bible['slug'],
                 File(open(downscale_image(str(bible['cover'])), 'rb')))
+
+            pdf_file_name = os.path.join(data_directory, bible['pdf_file_name'])
+            obj.pdf_file.save(
+                '%s.pdf' % bible['slug'],
+                File(open(pdf_file_name, 'rb')))
             obj.save()
 
             bible_image_path = os.path.join(
