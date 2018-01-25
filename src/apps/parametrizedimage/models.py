@@ -356,9 +356,9 @@ class Card(models.Model):
 
     for parameter in CARD_PARAMETERS:
         if parameter['type'] == 'float':
-            locals()[parameter['parameter_name']] = models.FloatField(null=True, blank=True)
+            locals()[parameter['parameter_name']] = models.FloatField(null=True, blank=True, db_index=True)
         elif parameter['type'] == 'string':
-            locals()[parameter['parameter_name']] = models.TextField(default='')
+            locals()[parameter['parameter_name']] = models.TextField(default='', db_index=True)
         else:
             assert(False)
 
@@ -384,7 +384,6 @@ class Card(models.Model):
 
     def get_parameter_value_dictionary_part_1(self):
         values = self.get_parameter_value_dictionary()
-        print(values, len(values), len(values)/2)
         return values[:int(len(values) / 2) + 1]
 
     def get_parameter_value_dictionary_part_2(self):
