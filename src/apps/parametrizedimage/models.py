@@ -349,6 +349,7 @@ CARD_PARAMETERS = [
 
 
 class Card(models.Model):
+    pdf_file = models.FileField()
     image1 = models.ImageField()
     image2 = models.ImageField(null=True, blank=True)
     identifier = models.TextField()
