@@ -145,10 +145,14 @@ MEDIA_URL = '/media/'
 # GOOGLE ANALYTICS
 GOOGLE_ANALYTICS_ID = env('GOOGLE_ANALYTICS_ID', default='')
 
+# Google Maps
+GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY', default='')
+
 # settings-context-processor
 TEMPLATE_VISIBLE_SETTINGS = [
     'GOOGLE_ANALYTICS_ID',
-    'MEDIA_URL'
+    'MEDIA_URL',
+    'GOOGLE_MAPS_API_KEY'
 ]
 
 # django-compressor
