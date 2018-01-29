@@ -29,4 +29,54 @@
       }
     }
   }
+
+  .image-wrapper {
+    $arrow-size: 50px;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 80vh;
+
+    position: relative;
+    width: 100%;
+
+    .arrow-next {
+      right: 0;
+
+      &::after {
+        content: '▶';
+      }
+    }
+
+    .arrow-prev {
+      left: 0;
+
+      &::after {
+        content: '◀';
+      }
+    }
+
+    .arrow {
+      background-color: $color-bg-transparent-black;
+      border: 0;
+      color: $color-fg-light;
+      font-size: 0;
+      height: $arrow-size;
+      line-height: $arrow-size;
+      margin-top: -$arrow-size / 2;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      width: $arrow-size;
+
+      &::after {
+        font-size: 20px;
+      }
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
 }
