@@ -1,5 +1,58 @@
 {% extends "base.html" %}
 
+{% block extrahead %}
+    <script src="/static/vendor/js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.criterion-candidate select.parameter-name').bind('change', function() {
+                if ($(this).find(':selected').data('type') === 'string') {
+                    $('select.parameter-relation').html('');
+                    $('<option name="equals">Jest równe</option>').appendTo(
+                        $('select.parameter-relation'));
+                } else if ($(this).find(':selected').data('type') === 'float') {
+                    $('select.parameter-relation').html('');
+                    $('<option name="lte">Jest mniejsze lub równe</option>').appendTo(
+                        $('select.parameter-relation'));
+                    $('<option name="gte">Jest większe lub równe</option>').appendTo(
+                        $('select.parameter-relation'));
+                } else {
+                    console.assert(false);
+                }
+            });
+            $('.criterion-candidate select.parameter-name').trigger('change');
+
+            $('.criterion-candidate a.button.add').bind('click', function() {
+                var relation;
+                if ($('select.parameter-relation :selected').attr('name') == 'equals') {
+                    relation = '';
+                } else if ($('select.parameter-relation :selected').attr('name') == 'lte') {
+                    relation = '_max';
+                } else if ($('select.parameter-relation :selected').attr('name') == 'gte') {
+                    relation = '_min';
+                }
+
+                href = window.location.href.replace(/#.*/, '')
+
+                var separator;
+                if (!href.endsWith('/')) {
+                    separator = '&';
+                } else {
+                    separator = '?';
+                }
+
+                window.location = (
+                    href +
+                    separator +
+                    $('.parameter-name :selected').attr('name') +
+                    relation +
+                    '=' +
+                    encodeURIComponent($('.parameter-value').val())
+                );
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     <div class="container page-card-index">
         <div class="row">
@@ -8,6 +61,37 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-xs-12 criterion-candidates" data-card-parameters="{{ card_parameters_json }}">
+                <div class="criterion-candidate">
+                    <select class="parameter-name">
+                        {% for parameter in card_parameters %}
+                            <option name="{{ parameter.parameter_name }}" data-type="{{ parameter.type }}">
+                                {{ parameter.parameter_name_human }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <select class="parameter-relation">
+                    </select>
+                    <input type="text" name="parameter-value" class="parameter-value" />
+                    <a class="button add" href="#">
+                        Dodaj kryterium <span class="button-icon">+</span>
+                    </a>
+                </div>
+
+                <div class="criteria">
+                    <h2>Przyjęte kryteria</h2>
+                    {% for criterion in criteria %}
+                        <div class="criterion">
+                            {{ criterion.as_text }}
+                            <a class="button" href="{{ criterion.url_if_removed }}">
+                                Usuń kryterium <span class="button-icon">-</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         <div class="row">
             {% for object in object_list %}
                 <div class="col-xs-12 col-sm-3">
