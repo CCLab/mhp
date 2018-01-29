@@ -1,4 +1,34 @@
 .page-card-index {
+  .criterion-candidate {
+    padding: 30px;
+    text-align: center;
+
+    select {
+      background: none;
+      border: 1px solid $color-border-dark;
+    }
+
+    select,
+    input {
+      margin-bottom: 15px;
+      margin-right: 15px;
+      padding: 10px;
+    }
+  }
+
+  .criteria {
+    margin-bottom: 20px;
+    text-align: center;
+
+    .criterion {
+      margin-bottom: 10px;
+    }
+
+    .button {
+      margin-left: 30px;
+    }
+  }
+
   .card {
     background-position: center;
     background-repeat: no-repeat;
