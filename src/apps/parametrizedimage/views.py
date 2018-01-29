@@ -9,7 +9,7 @@ from src.apps.parametrizedimage import models
 
 class IndexView(generic.ListView):
     template_name = 'parametrizedimage/index.html'
-    paginate_by = 10
+    paginate_by = 12
 
     def get_queryset(self, *args, **kwargs):
         qs = models.Card.objects.all()
