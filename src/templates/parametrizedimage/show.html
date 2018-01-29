@@ -25,7 +25,7 @@
     <div class="container page-card-show">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Karta pomiarowa: {{ object.identifier }}</h1>
+                <h1>Karta pomiarowa: {{ object.card_id }}, obraz {{ object.image_id }}</h1>
             </div>
         </div>
         <div class="row short-description">
@@ -49,18 +49,10 @@
                     </a>
                 </div>
                 <div class="button-wrapper">
-                    <a class="button" href="{{ MEDIA_URL }}{{ object.image1 }}" download>
-                        Pobierz plik JPG (strona 1)
+                    <a class="button" href="{{ MEDIA_URL }}{{ object.image }}" download>
+                        Pobierz plik JPG
                         <span class="button-icon">⇓</span>
                     </a>
-                </div>
-                <div class="button-wrapper">
-                    {% if object.image2 %}
-                        <a class="button" href="{{ MEDIA_URL }}{{ object.image2 }}" download>
-                            Pobierz plik JPG (strona 2)
-                            <span class="button-icon">⇓</span>
-                        </a>
-                    {% endif %}
                 </div>
                 <div class="button-wrapper">
                     <a class="button" href="{{ MEDIA_URL }}{{ object.pdf_file }}" download>
@@ -102,11 +94,14 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <div class="carousel">
-                    <div class="slide" style="background-image: url({{ MEDIA_URL }}{{ object.image1 }})"></div>
-
-                    {% if object.image2 %}
-                        <div class="slide" style="background-image: url({{ MEDIA_URL }}{{ object.image2 }})"></div>
+                <div class="image-wrapper" style="background-image: url({{ MEDIA_URL }}{{ object.image }})">
+                    {% if object.get_previous_card_image_pk %}
+                        <a class="arrow-prev arrow" href="{% url 'parametrizedimage:show' object.get_previous_card_image_pk %}">
+                        </a>
+                    {% endif %}
+                    {% if object.get_next_card_image_pk %}
+                        <a class="arrow-next arrow" href="{% url 'parametrizedimage:show' object.get_next_card_image_pk %}">
+                        </a>
                     {% endif %}
                 </div>
             </div>

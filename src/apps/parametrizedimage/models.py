@@ -10,6 +10,13 @@ CARD_PARAMETERS = [
         'more_important': True,
     },
     {
+        'csv_field_name': 'data badania',
+        'parameter_name': 'parameter_data_badania',
+        'parameter_name_human': 'Data badania',
+        'type': 'string',
+        'more_important': True,
+    },
+    {
         'csv_field_name': 'rocznik',
         'parameter_name': 'parameter_rocznik',
         'parameter_name_human': 'Rocznik',
@@ -345,32 +352,56 @@ CARD_PARAMETERS = [
         'type': 'float',
         'more_important': False,
     },
+    {
+        'exif_field_name': 'XMP:Creator',
+        'parameter_name': 'instytucja',
+        'parameter_name_human': "Instytucja",
+        'type': 'string',
+        'more_important': True,
+    },
+    {
+        'exif_field_name': 'EXIF:XPKeywords',
+        'type': 'tags',
+        'parameter_name': "tags",
+        'parameter_name_human': "Tagi",
+        'more_important': True,
+    }
 ]
 
 
-class Card(models.Model):
+class CardImage(models.Model):
+    class Meta:
+        ordering = ['card_id', 'image_id']
     pdf_file = models.FileField()
-    image1 = models.ImageField()
-    image2 = models.ImageField(null=True, blank=True)
-    identifier = models.TextField()
+    card_id = models.IntegerField(db_index=True)
+    image_id = models.IntegerField(db_index=True)
+    image = models.ImageField()
 
     for parameter in CARD_PARAMETERS:
         if parameter['type'] == 'float':
             locals()[parameter['parameter_name']] = models.FloatField(null=True, blank=True, db_index=True)
         elif parameter['type'] == 'string':
             locals()[parameter['parameter_name']] = models.TextField(default='', db_index=True)
+        elif parameter['type'] == 'tags':
+            # such a m2m field already exists on CardImageTag
+            pass
         else:
             assert(False)
 
     def get_parameter_value_dictionary(self):
         result = []
         for parameter in CARD_PARAMETERS:
-            value = getattr(self, parameter['parameter_name'])
-
-            if isinstance(value, float):
+            if parameter['type'] == 'string':
+                value = getattr(self, parameter['parameter_name'])
+                result.append((parameter['parameter_name_human'], value))
+            elif parameter['type'] == 'float':
+                value = getattr(self, parameter['parameter_name'])
                 value = '%.0f' % value
+                result.append((parameter['parameter_name_human'], value))
+            elif parameter['type'] == 'tags':
+                value = ', '.join([tag.name for tag in self.cardimagetag_set.all()])
+                result.append((parameter['parameter_name_human'], value))
 
-            result.append((parameter['parameter_name_human'], value))
         return result
 
     def get_parameter_value_dictionary_more_important(self):
@@ -389,3 +420,44 @@ class Card(models.Model):
     def get_parameter_value_dictionary_part_2(self):
         values = self.get_parameter_value_dictionary()
         return values[int(len(values) / 2) + 1:]
+
+    def get_previous_card_image_pk(self):
+        if self.image_id == 2:
+            return CardImage.objects.get(card_id=self.card_id, image_id=1).pk
+        elif self.image_id == 1:
+            objects = CardImage.objects.filter(card_id__lt=self.card_id).order_by('-card_id', '-image_id')
+
+            if len(objects) > 0:
+                return objects[0].pk
+            else:
+                return None
+        else:
+            assert(False)
+
+    def get_next_card_image_pk(self):
+        if self.image_id == 2:
+            objects = CardImage.objects.filter(card_id__gt=self.card_id).order_by('card_id', 'image_id')
+
+            if len(objects) > 0:
+                return objects[0].pk
+            else:
+                return None
+        elif self.image_id == 1:
+            try:
+                return CardImage.objects.get(card_id=self.card_id, image_id=2).pk
+            except CardImage.DoesNotExist:
+                objects = (CardImage
+                           .objects
+                           .filter(card_id__gt=self.card_id)
+                           .order_by('card_id', 'image_id'))
+                if len(objects) > 0:
+                    return objects[0].pk
+                else:
+                    return None
+        else:
+            assert(False)
+
+
+class CardImageTag(models.Model):
+    name = models.TextField(db_index=True)
+    card_images = models.ManyToManyField(CardImage)

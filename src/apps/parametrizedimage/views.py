@@ -12,7 +12,7 @@ class IndexView(generic.ListView):
     paginate_by = 12
 
     def get_queryset(self, *args, **kwargs):
-        qs = models.Card.objects.all()
+        qs = models.CardImage.objects.all()
 
         for parameter in models.CARD_PARAMETERS:
             if parameter['type'] == 'string':
@@ -27,6 +27,9 @@ class IndexView(generic.ListView):
                     qs = qs.filter(**{
                         '%s__lte' % parameter['parameter_name']:
                             float(self.request.GET['%s_max' % parameter['parameter_name']])})
+            elif parameter['type'] == 'tags':
+                # TODO
+                pass
             else:
                 assert(False)
         return qs
@@ -73,6 +76,9 @@ class IndexView(generic.ListView):
                             self.request.GET,
                             '%s_max' % parameter['parameter_name'])
                     })
+            elif parameter['type'] == 'tags':
+                # TODO
+                pass
             else:
                 assert(False)
         return criteria
@@ -81,9 +87,10 @@ class IndexView(generic.ListView):
         context = super().get_context_data(*args, **kwargs)
         context['card_parameters'] = models.CARD_PARAMETERS
         context['criteria'] = self.get_criteria()
+        context['tags'] = models.CardImageTag.objects.all()
         return context
 
 
 class ShowView(generic.DetailView):
-    model = models.Card
+    model = models.CardImage
     template_name = 'parametrizedimage/show.html'

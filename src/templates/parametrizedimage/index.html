@@ -9,12 +9,25 @@
                     $('select.parameter-relation').html('');
                     $('<option name="equals">Jest równe</option>').appendTo(
                         $('select.parameter-relation'));
+
+                    $('select.parameter-value').hide();
+                    $('input.parameter-value').show();
                 } else if ($(this).find(':selected').data('type') === 'float') {
                     $('select.parameter-relation').html('');
                     $('<option name="lte">Jest mniejsze lub równe</option>').appendTo(
                         $('select.parameter-relation'));
                     $('<option name="gte">Jest większe lub równe</option>').appendTo(
                         $('select.parameter-relation'));
+
+                    $('select.parameter-value').hide();
+                    $('input.parameter-value').show();
+                } else if ($(this).find(':selected').data('type') === 'tags') {
+                    $('select.parameter-relation').html('');
+                    $('<option name="contains">Zawierają</option>').appendTo(
+                        $('select.parameter-relation'));
+
+                    $('input.parameter-value').hide();
+                    $('select.parameter-value').show();
                 } else {
                     console.assert(false);
                 }
@@ -24,6 +37,8 @@
             $('.criterion-candidate a.button.add').bind('click', function() {
                 var relation;
                 if ($('select.parameter-relation :selected').attr('name') == 'equals') {
+                    relation = '';
+                } else if ($('select.parameter-relation :selected').attr('name') == 'contains') {
                     relation = '';
                 } else if ($('select.parameter-relation :selected').attr('name') == 'lte') {
                     relation = '_max';
@@ -73,14 +88,23 @@
                     </select>
                     <select class="parameter-relation">
                     </select>
-                    <input type="text" name="parameter-value" class="parameter-value" />
+                    <input type="text" class="parameter-value" />
+                    <select class="parameter-value tags">
+                        {% for tag in tags %}
+                            <option>{{ tag.name }}</option>
+                        {% endfor %}
+                    </select>
+
                     <a class="button add" href="#">
                         Dodaj kryterium <span class="button-icon">+</span>
                     </a>
                 </div>
 
                 <div class="criteria">
-                    <h2>Przyjęte kryteria</h2>
+                    {% if criteria %}
+                        <h2>Przyjęte kryteria</h2>
+                    {% endif %}
+
                     {% for criterion in criteria %}
                         <div class="criterion">
                             {{ criterion.as_text }}
@@ -95,7 +119,7 @@
         <div class="row">
             {% for object in object_list %}
                 <div class="col-xs-12 col-sm-3">
-                    <a href="{% url 'parametrizedimage:show' object.pk %}" class="card" style="background-image: url({{ MEDIA_URL }}{{ object.image1 }})">
+                    <a href="{% url 'parametrizedimage:show' object.pk %}" class="card" style="background-image: url({{ MEDIA_URL }}{{ object.image }})">
                     </a>
                 </div>
             {% endfor %}
