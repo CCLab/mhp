@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block extrahead %}
-    <script src="/static/vendor/js/jquery-3.3.1.min.js"></script>
+    <script src="{{ STATIC_URL }}/vendor/js/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.criterion-candidate select.parameter-name').bind('change', function() {

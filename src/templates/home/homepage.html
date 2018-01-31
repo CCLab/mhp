@@ -1,10 +1,25 @@
 {% extends "base.html" %}
 
+{% block extrahead %}
+    <script src="{{ STATIC_URL }}/vendor/js/jquery-3.3.1.min.js"></script>
+    <script src="{{ STATIC_URL }}/vendor/js/slick.min.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/vendor/css/slick.css" />
+
+    <script>
+        $(document).ready(function() {
+            $('.carousel').slick();
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                Strona główna w budowie.
+                <div class="carousel">
+                    <a class="slide" style="background-image: url({{ STATIC_URL }}/img/hp-card.jpg)" href="{% url 'parametrizedimage:index' %}"></a>
+                    <a class="slide" style="background-image: url({{ STATIC_URL }}/img/hp-bible.gif)" href="{% url 'bible:index' %}"></a>
+                </div>
             </div>
         </div>
     </div>

@@ -3,9 +3,7 @@ import os
 import sys
 
 if __name__ == "__main__":
-    # In Laboratorium EE, we want all our Django projects to use
-    # at least Python 3.5.
-    assert sys.version_info >= (3, 5, 0)
+    assert sys.version_info >= (3, 4, 0)
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.settings.local")
 

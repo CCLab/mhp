@@ -21,6 +21,7 @@ CARD_PARAMETERS = [
         'parameter_name': 'parameter_rocznik',
         'parameter_name_human': 'Rocznik',
         'type': 'float',
+        'round': True,
         'more_important': True,
     },
     {
@@ -396,7 +397,11 @@ class CardImage(models.Model):
                 result.append((parameter['parameter_name_human'], value))
             elif parameter['type'] == 'float':
                 value = getattr(self, parameter['parameter_name'])
-                value = '%.0f' % value
+
+                if parameter.get('round', False):
+                    value = '%.0f' % value
+                else:
+                    value = '%.2f' % value
                 result.append((parameter['parameter_name_human'], value))
             elif parameter['type'] == 'tags':
                 value = ', '.join([tag.name for tag in self.cardimagetag_set.all()])
